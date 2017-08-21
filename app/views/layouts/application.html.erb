@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SessionLogin</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key}") %>
+    <% end %>
+    
+    <% if logged_in? %>
+      <p>現在ログイン中</p>
+      <%= link_to "Profile", user_path(current_user.id) %>
+      <%= link_to "Logout", session_path, method: :delete %>
+    <% else %>
+    　<p>非ログイン</p>
+      <%= link_to "Sign up", new_user_path %>
+      <%= link_to "Login", new_session_path %>
+    <% end %>
+
+    <%= yield %>
+  </body>
+</html>
